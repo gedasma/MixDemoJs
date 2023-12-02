@@ -11979,3 +11979,7 @@ textarea.form-control-lg {
 header {
   background-color: red;
 }
+
+form > .message {
+  color: red;
+}

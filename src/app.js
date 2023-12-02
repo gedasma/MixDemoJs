@@ -1,8 +1,5 @@
-let name = "Gediminas"
+import renderForm from "./modules/renderForm";
+import searchCode from "./modules/searchCode";
 
-let students = ['ieva', 'kotryna', 'jonas'];
-
-for(let student of students)
-{
-    console.log(student)
-}
+renderForm();
+searchCode();

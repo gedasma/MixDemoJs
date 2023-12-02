@@ -1,18 +1,117 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/app.js":
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var name = "Gediminas";
-var students = ['ieva', 'kotryna', 'jonas'];
-for (var _i = 0, _students = students; _i < _students.length; _i++) {
-  var student = _students[_i];
-  console.log(student);
-}
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_renderForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/renderForm */ "./src/modules/renderForm.js");
+/* harmony import */ var _modules_searchCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/searchCode */ "./src/modules/searchCode.js");
+
+
+(0,_modules_renderForm__WEBPACK_IMPORTED_MODULE_0__["default"])();
+(0,_modules_searchCode__WEBPACK_IMPORTED_MODULE_1__["default"])();
+
+/***/ }),
+
+/***/ "./src/modules/ajaxService.js":
+/*!************************************!*\
+  !*** ./src/modules/ajaxService.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var ajaxService = function ajaxService(address, city) {
+  var url = "https://api.postit.lt/v2/?city=";
+  var key = "oAIo6osrfmFDJOgStawR";
+  return fetch("".concat(url).concat(city, "&address=").concat(address, "&key=").concat(key)).then(function (Response) {
+    return Response.json();
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ajaxService);
+
+/***/ }),
+
+/***/ "./src/modules/form.js":
+/*!*****************************!*\
+  !*** ./src/modules/form.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var form = function form() {
+  return "\n    <p class=\"message\"></p>\n    <div class=\"form-group\">\n        <input type = \"text\" class=\"form-control address city\" placeholder=\"Miestas\">\n    </div>\n    <div class=\"form-group\">\n        <input type = \"text\" class=\"form-control address term\" placeholder=\"Jusu adresas\">\n    </div>\n    <div class=\"form-group\">\n        <input type = \"text\" class=\"form-control result\" readonly>\n    </div>\n    <div class=\"form-group\">\n        <button type=\"submit\" class = \"btn btn-primary\">Ieskoti</button>\n    </div>\n    ";
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (form);
+
+/***/ }),
+
+/***/ "./src/modules/renderForm.js":
+/*!***********************************!*\
+  !*** ./src/modules/renderForm.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ "./src/modules/form.js");
+ //modulio imporas
+
+var renderForm = function renderForm() {
+  var formElement = document.createElement('form');
+  formElement.className = "form-line";
+  formElement.innerHTML = (0,_form__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  document.querySelector('.card-body').appendChild(formElement);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderForm);
+
+/***/ }),
+
+/***/ "./src/modules/searchCode.js":
+/*!***********************************!*\
+  !*** ./src/modules/searchCode.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ajaxService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ajaxService */ "./src/modules/ajaxService.js");
+
+var searchCode = function searchCode() {
+  document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var searchTerm = document.querySelector('.term').value;
+    var city = document.querySelector('.city').value;
+    var searchResponse;
+    (0,_ajaxService__WEBPACK_IMPORTED_MODULE_0__["default"])(searchTerm, city).then(function (result) {
+      return searchResponse = result;
+    }).then(function () {
+      console.log(searchResponse);
+      if (searchResponse.data.length > 0) {
+        document.querySelector('.message').textContent = "";
+        document.querySelector('.result').value = searchResponse.data[0].post_code;
+      } else {
+        document.querySelector('.result').value = "";
+        document.querySelector('.message').textContent = "tokio adreso nera!";
+      }
+    });
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (searchCode);
 
 /***/ }),
 
@@ -22,7 +121,6 @@ for (var _i = 0, _students = students; _i < _students.length; _i++) {
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -88,6 +186,18 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
 /******/ 		};
 /******/ 	})();
 /******/ 	
